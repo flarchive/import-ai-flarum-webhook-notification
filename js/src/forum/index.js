@@ -1,0 +1,16 @@
+import { extend } from 'flarum/common/extend';
+import app from 'flarum/forum/app';
+import NotificationGrid from 'flarum/forum/components/NotificationGrid';
+
+app.initializers.add('import-ai-webhook-notification', () => {
+  extend(NotificationGrid.prototype, 'notificationMethods', function (items) {
+    const icon = app.forum.attribute('webhookNotificationIcon') || 'fas fa-globe';
+    const label = app.forum.attribute('webhookNotificationLabel') || app.translator.trans('import-ai-webhook-notification.forum.settings.notify_webhook_label');
+
+    items.add('webhook', {
+      name: 'webhook',
+      icon: icon,
+      label: label
+    });
+  });
+});
